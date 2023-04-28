@@ -1,0 +1,31 @@
+#Problems from last semester using lambda filter, etc
+def q1(x,y,s):# prints the difference between two numbers
+    if(x>y or s>y-x):
+        print("ERROR")
+    else:
+        lst = list(filter(lambda t: t>=0 or t<0, range(x,y,s)))
+        print(lst)
+def q2():#squares each number
+    lst1 = [2,4,6,8,10,12,14]
+    lst2 = list(filter(lambda t: t>50, list(map(lambda x: x**2, lst1))))
+    print(lst2)
+def q3(): #Filters vehicles based on weight
+    dict1={"Sedan":1500,"SUV":2000,"Pickup":2500,"Minivan":1600,"Van":2400,"Semi":13600,"Bicycle":7,"Motorcycle":110}
+    result = list(map(lambda s:s.upper(), list(filter(lambda x: dict1[x] < 5000, dict1))))
+    print(result)
+def q4(): #Filters out the prime numbers from 10 to 100
+    isdivis = lambda x: len(list(filter(lambda y: x%y == 0, range(2,10)))) > 0
+    result = list(filter(isdivis,range(10,101)))
+    print(result)
+def q5(): #Rotates the matrix by one
+    matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+    real2=[]
+    real=[]
+    real3=list(map(lambda x: real2.append(list(map(lambda y: y[x-1],matrix))), matrix[0]))
+    print(real2)
+
+q1(1,11,1)
+q2()
+q3()
+q4()
+q5()
