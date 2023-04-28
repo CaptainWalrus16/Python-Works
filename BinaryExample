@@ -1,5 +1,5 @@
 
-#code from early last semester, takes a  interger in the range of excess 3 and converts it to such
+"""code from early last semester, takes a  interger in the range of excess 3 and converts it to such"""
 def decTobinwhole(x): #Takes the the whole number portion of the decimal and chan ges it to binary
     return int(bin(x)[2:])
     
