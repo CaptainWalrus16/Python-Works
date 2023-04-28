@@ -1,0 +1,138 @@
+
+def decTobinwhole(x): #Takes the the whole number portion of the decimal and chan ges it to binary
+    return int(bin(x)[2:])
+    
+def decTobinFrac(y):#Takes the decimal after the fraction and converts it to binary using the method from class
+    if(y==0):
+        return 0
+    result = "."
+    while (y != 0):
+        y = y*2
+        if(y >= 1):
+            result = result + "1"
+            y = y- 1
+        else:
+            result = result + "0"
+    return float(result)
+    
+def normalize(z): #Function normalizes the value and adjusts the power accordingly
+    power = 0
+    if(z==0):
+        return[0,-3]
+    if(z>1):
+        while(z >= 10): #the value is greater than the ones place
+         power+=1
+         z = z/10
+    else:
+        while(z<1): #The value is less than the ones place
+            power = power - 1
+            z = z*10
+    return [z,power]
+    
+def excess3(e): #Takes the exponent, adds three and then converts it to binary
+    e = e+ 3
+    result=""
+    if((e-4)>-1):
+        result+="1"
+        e=e-4
+    else:
+        result+="0"
+    if((e-2)>-1):
+        result+="1"
+        e=e-2
+    else:
+        result+="0"
+    if((e-1)>-1):
+        result+="1"
+        e=e-1
+    else:
+        result+="0"
+    return result
+    
+def significand(f): #Creates a four bit significand as string so that ways trailing zeroes stay
+    f = round(f,4) 
+    result = ''
+    f = f-1
+    f = f * 1000
+    if (f>=1000):
+        result += "1"
+        f-1000
+    else:
+        result += "0"
+    if (f>=100):
+        result += "1"
+        f-100
+    else:
+        result += "0"
+    if (f>=10):
+        result += "1"
+        f-10
+    else:
+        result += "0"
+    if (f>=1):
+        result += "1"
+        f-1000
+    else:
+        result += "0"
+    return result
+    
+def main():
+    choice = 0 
+    sign = "0"
+    number = float(input("Enter the Number to Test\n"))
+    if (number<0): #Takes the sign early so I don't have to worry about negatives for my functions
+        sign = "1"
+        number = number * -1
+    if (number>15.5):
+        if(sign == "0"):
+            print("Positive Overflow")
+        else:
+            print("Negative Overflow")
+        number = 16
+    if(number<.015625):
+        if(sign == "0"):
+            print("Positive Underflow")
+        else:
+            print("Negative Underflow")
+        number = 0
+    while(choice!=5):
+        choice = int(input("Choose an Option\n1.Convert the Number to Binary\n2.Normalize the Binary\n3.Convert the Exponent to excess 3\n4.Present the 8bit Combination\n5.Exit\n"))
+        if(choice == 5):
+            print("Exiting.....")
+        if(choice>=1 and choice < 5):
+            number, decimal = int(number), number - int(number)
+            combo = decTobinwhole(number)+ decTobinFrac(decimal)
+            if(choice==1):
+                if(sign == "0"):
+                    print(str(combo))
+                else:
+                    print("-"+str(combo)) 
+                
+            else:
+                normal = normalize(combo)
+                if(choice==2):
+                    if(number == 0 or number == 16): #0 and Infinity cant be normalized
+                        print("Cannot be normalized")
+                    else:
+                        print(sign+" "+str(normal[0])+"*2^"+str(normal[1]))
+                else:
+                    exponent = excess3(normal[1])
+                    if(choice == 3):
+                        print(exponent)
+                    else:
+                        sig = significand(normal[0])
+                        print(sign+" "+exponent+" "+sig)
+    
+
+
+main()
+
+
+
+
+
+
+
+
+
+
